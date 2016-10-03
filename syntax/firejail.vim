@@ -8,6 +8,12 @@ endif
 
 syn case match
 
+" Path hanlding
+" This includes some special cases for handling constants like HOME
+syn match firejailPath      "[a-zA-Z/~][a-zA-Z/~ .]*"
+syn match firejailConstVar  "\(HOME\|PATH\|DOWNLOADS\)" contained
+syn region firejailVar      start="${" end="}"          keepend   contains=firejailConstVar
+
 " Scripting keywords
 syn match firejailKeyword   "^include"
 syn match firejailKeyword   "^noblacklist"
@@ -72,5 +78,7 @@ syn match firejailComment   "^#.*"
 hi def link firejailKeyword    Keyword
 hi def link firejailBool       Boolean
 hi def link firejailComment    Comment
+hi def link firejailConstVar   Constant
+hi def link firejailErr        Error
 
 let b:current_syntax = "firejail"
